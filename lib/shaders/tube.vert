@@ -50,10 +50,10 @@ vec3 spherical (float r, float phi, float theta) {
 // Creates an animated torus knot
 vec3 sample (float t) {
   float beta = t * PI;
-  
+
   float ripple = ease(sin(t * 2.0 * PI + time) * 0.5 + 0.5) * 0.5;
   float noise = time + index * ripple * 8.0;
-  
+
   // animate radius on click
   float radiusAnimation = animateRadius * animateStrength * 0.25;
   float r = sin(index * 0.75 + beta * 2.0) * (0.75 + radiusAnimation);
@@ -170,7 +170,7 @@ void createTube (float t, vec2 volume, out vec3 offset, out vec3 normal) {
   // sample the curve in two places
   vec3 current = sample(t);
   vec3 next = sample(nextT);
-  
+
   // compute the TBN matrix
   vec3 T = normalize(next - current);
   vec3 B = normalize(cross(T, next + current));

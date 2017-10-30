@@ -48,11 +48,14 @@ function start () {
 
   app.canvas.addEventListener('touchstart', tap);
   if (!isMobile) app.canvas.addEventListener('mousedown', tap);
+  if (!isMobile) app.canvas.addEventListener('mouseup', back);
   if (isMobile) infoElement.textContent = 'tap to interact';
   infoElement.style.visibility = 'visible';
 
   if (query.renderOnce) tick(0);
   else createLoop(tick).start();
+
+  var speed = 1;
 
   function tick (dt = 0) {
     intervalTime += dt;
@@ -61,13 +64,22 @@ function start () {
     } else if (skipFrames) {
       return;
     }
-    line.update(dt);
+    line.update(dt * speed);
     app.tick(dt);
     app.render();
   }
 
   function tap (ev) {
     // ev.preventDefault();
-    line.setPalette(palettes[paletteIndex++ % palettes.length]);
+    //line.setPalette(palettes[paletteIndex++ % palettes.length]);
+    line.setPalette('#ff0000');
+    speed = 1000;
+  }
+
+  function back (ev) {
+    // ev.preventDefault();
+    //line.setPalette(palettes[paletteIndex++ % palettes.length]);
+    line.setPalette('#222222');
+    speed = 1;
   }
 }
